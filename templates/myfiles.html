@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <title>Cloud Storage</title>
+    <link rel="icon" href="/static/logo.png">
+ <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/password.js"></script>
+    <div class="container py-3">
+<div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom"  style="display:inline;">
+    <span class="animation"></span>
+    <span class="text-light" style="margin-right: 50px;"> | Cloud Storage</span>
+
+<nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+      <a class="me-3 py-2 text-light text-decoration-none btn btn-danger" href="/">Home</a>
+      <a class="me-3 py-2 text-light text-decoration-none btn btn-success" href="/register">Register</a>
+      <a class="me-3 py-2 text-light text-decoration-none btn btn-primary" href="/login">Login</a>
+      <a class="me-3 py-2 text-light text-decoration-none btn btn-secondary" href="/myfiles">My Files</a>
+      <a class="me-3 py-2 text-light text-decoration-none btn btn-warning" href="/upload">Upload</a>
+      </nav>
+    </div>
+    <h1 class="text-light">My Files</h1>
+        <br>
+        <br>
+        <br>
+        <div class="row row-cols-1 row-cols-md-5 g-20">
+
+        {% for i in files %}
+             <div >
+                <a href="/{{ i.path }}" download= "/{{ i.path }}"><img class="download" src="/static/download.png"></a><br><br>
+          <b class="text-light">{{ i.name }}</b><br>
+                 {% if i.count == 1 %}
+          <b class="text-light">{{ i.size /  i.count  }} B</b><br>
+                 {% elif i.count == 1000 %}
+          <b class="text-light">{{ i.size /  i.count  }} KB</b><br>
+                 {% elif i.count == 1000000 %}
+          <b class="text-light">{{ i.size /  i.count  }} MB</b><br>
+                 {% elif i.count == 1000000000 %}
+          <b class="text-light">{{ i.size /  i.count  }} GB</b><br>
+                 {% else %}
+          <b class="text-light">{{ i.size /  i.count }} TB</b><br>
+                 {% endif %}
+                 </div>
+        {% endfor %}
+
+        </div>
+</div>
+</body>
+</html>
