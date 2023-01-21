@@ -187,5 +187,10 @@ def delete():
     return redirect("/myfiles")
 
 
+@app.route('/static/uploads/<string:name>/<string:dir>/<string:file>')
+def redirection(name, dir, file):
+    return redirect("/myfiles")
+
+
 if __name__ == '__main__':
     app.run(host=HOST, port=PORT, debug=True)
