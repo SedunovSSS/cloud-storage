@@ -34,7 +34,7 @@
 
         {% for i in files %}
              <div >
-                <a href="/{{ i.path }}" download= "/{{ i.path }}"><img class="download" src="/static/download.png"></a><br><br>
+                <a href="/{{ i.path }}" download= "/{{ i.path }}"><img class="download" src="/static/download.png"></a><a href="/deletefile?id={{ i.id }}"><img class="delete" src="/static/delete.png"></a><br><br>
           <b class="text-light">{{ i.name }}</b><br>
                  {% if i.count == 1 %}
           <b class="text-light">{{ i.size /  i.count  }} B</b><br>

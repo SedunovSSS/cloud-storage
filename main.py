@@ -171,5 +171,21 @@ def myfiles():
         return render_template("myfiles.html", files=files)
 
 
+@app.route("/deletefile")
+def delete():
+    id = request.args.get('id')
+    name = request.cookies.get('user')
+    if name is None:
+        return redirect("/login")
+    file = Files.query.filter_by(id=id, author=name).first()
+    path = file.path
+    os.remove(path)
+    path_split = path.split("/")
+    os.rmdir(f"{path_split[0]}/{path_split[1]}/{path_split[2]}/{path_split[3]}")
+    Files.query.filter_by(id=id, author=name).delete()
+    db.session.commit()
+    return redirect("/myfiles")
+
+
 if __name__ == '__main__':
     app.run(host=HOST, port=PORT, debug=True)
