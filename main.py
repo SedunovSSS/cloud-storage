@@ -116,8 +116,8 @@ def login():
             return render_template("login.html", name=name)
 
 
-@app.route("/upload", methods=['POST', 'GET'])
-def upload():
+@app.route("/myfiles", methods=['POST', 'GET'])
+def myfiles():
     if request.method == "POST":
         name = request.cookies.get('user')
         if name is None:
@@ -148,27 +148,19 @@ def upload():
             return redirect("/myfiles")
         except Exception as ex:
             print(ex)
-            return redirect("/upload")
+            return redirect("/myfiles")
     else:
         name = request.cookies.get('user')
         if name is None:
             return redirect("/login")
-        return render_template("upload.html")
-
-
-@app.route("/myfiles")
-def myfiles():
-    name = request.cookies.get('user')
-    if name is None:
-        return redirect("/login")
-    else:
-        files = Files.query.filter_by(author=name).all()
-        files = list(files)
-        if len(files) == 2:
-            files[0], files[1] = files[1], files[0]
-        elif len(files) > 2:
-            files.reverse()
-        return render_template("myfiles.html", files=files)
+        else:
+            files = Files.query.filter_by(author=name).all()
+            files = list(files)
+            if len(files) == 2:
+                files[0], files[1] = files[1], files[0]
+            elif len(files) > 2:
+                files.reverse()
+            return render_template("myfiles.html", files=files)
 
 
 @app.route("/deletefile")

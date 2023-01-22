@@ -23,12 +23,17 @@
       <a class="me-3 py-2 text-light text-decoration-none btn btn-success" href="/register">Register</a>
       <a class="me-3 py-2 text-light text-decoration-none btn btn-primary" href="/login">Login</a>
       <a class="me-3 py-2 text-light text-decoration-none btn btn-secondary" href="/myfiles">My Files</a>
-      <a class="me-3 py-2 text-light text-decoration-none btn btn-warning" href="/upload">Upload</a>
       </nav>
     </div>
-    <h1 class="text-light">My Files</h1>
+    <h1 class="text-light">Upload</h1>
+        <br>
+        <form action="" method="post" enctype="multipart/form-data">
+        <p class="text-light">File: </p><input type="file" name="file[]" id="file[]" value="File" class="btn btn-primary"><br><br>
+        <button class="btn btn-primary" type="submit">Upload</button>
+    </form>
         <br>
         <br>
+        <h1 class="text-light">My Files</h1>
         <br>
         <div class="row row-cols-1 row-cols-md-5 g-20">
 
