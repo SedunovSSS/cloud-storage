@@ -17,12 +17,14 @@
 <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom"  style="display:inline;">
     <span class="animation"></span>
     <span class="text-light" style="margin-right: 50px;"> | Cloud Storage</span>
-
 <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-      <a class="me-3 py-2 text-light text-decoration-none btn btn-danger" href="/">Home</a>
       <a class="me-3 py-2 text-light text-decoration-none btn btn-success" href="/register">Register</a>
+    {% if name %}
+      <a class="me-3 py-2 text-light text-decoration-none btn btn-primary" href="/logout">Logout</a>
+    {% else %}
       <a class="me-3 py-2 text-light text-decoration-none btn btn-primary" href="/login">Login</a>
-      <a class="me-3 py-2 text-light text-decoration-none btn btn-secondary" href="/myfiles">My Files</a>
+    {% endif %}
+      <a class="me-3 py-2 text-light text-decoration-none btn btn-danger" href="/myfiles">My Files</a>
       </nav>
     </div>
     <h1 class="text-light">Login</h1>

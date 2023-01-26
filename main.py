@@ -40,8 +40,8 @@ class Files(db.Model):
 def main():
     name = request.cookies.get('user')
     if name is None:
-        name = "Guest"
-    return render_template("index.html", name=name)
+        return redirect("/login")
+    return redirect("/myfiles")
 
 
 @app.route('/register', methods=['POST', 'GET'])
@@ -70,13 +70,7 @@ def register():
                 return redirect("/register")
     else:
         name = request.cookies.get('user')
-        if name is None:
-            name = "Guest"
-        try:
-            path = db.session.query(Users.path).filter_by(login=name).first()[0]
-            return render_template("register.html", name=name, path=path)
-        except:
-            return render_template("register.html", name=name)
+        return render_template("register.html", name=name)
 
 
 @app.route('/login', methods=['POST', "GET"])
@@ -98,22 +92,10 @@ def login():
 
         else:
             name = request.cookies.get('user')
-            if name is None:
-                name = "Guest"
-            try:
-                path = db.session.query(Users.path).filter_by(login=name).first()[0]
-                return render_template("login.html", name=name, path=path)
-            except:
-                return render_template("login.html", name=name)
+            return render_template("login.html", name=name)
     else:
         name = request.cookies.get('user')
-        if name is None:
-            name = "Guest"
-        try:
-            path = db.session.query(Users.path).filter_by(login=name).first()[0]
-            return render_template("login.html", name=name, path=path)
-        except:
-            return render_template("login.html", name=name)
+        return render_template("login.html", name=name)
 
 
 @app.route("/myfiles", methods=['POST', 'GET'])
@@ -160,7 +142,7 @@ def myfiles():
                 files[0], files[1] = files[1], files[0]
             elif len(files) > 2:
                 files.reverse()
-            return render_template("myfiles.html", files=files)
+            return render_template("myfiles.html", files=files, name=name)
 
 
 @app.route("/deletefile")
@@ -177,6 +159,13 @@ def delete():
     Files.query.filter_by(id=id, author=name).delete()
     db.session.commit()
     return redirect("/myfiles")
+
+
+@app.route('/logout')
+def logout():
+    resp = make_response(redirect("/login"))
+    resp.set_cookie('user', '', expires=0)
+    return resp
 
 
 @app.route('/static/uploads/<string:name>/<string:dir>/<string:file>')

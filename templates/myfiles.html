@@ -19,10 +19,13 @@
     <span class="text-light" style="margin-right: 50px;"> | Cloud Storage</span>
 
 <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-      <a class="me-3 py-2 text-light text-decoration-none btn btn-danger" href="/">Home</a>
       <a class="me-3 py-2 text-light text-decoration-none btn btn-success" href="/register">Register</a>
+    {% if name %}
+      <a class="me-3 py-2 text-light text-decoration-none btn btn-primary" href="/logout">Logout</a>
+    {% else %}
       <a class="me-3 py-2 text-light text-decoration-none btn btn-primary" href="/login">Login</a>
-      <a class="me-3 py-2 text-light text-decoration-none btn btn-secondary" href="/myfiles">My Files</a>
+    {% endif %}
+      <a class="me-3 py-2 text-light text-decoration-none btn btn-danger" href="/myfiles">My Files</a>
       </nav>
     </div>
     <h1 class="text-light">Upload</h1>
@@ -33,10 +36,9 @@
     </form>
         <br>
         <br>
-        <h1 class="text-light">My Files</h1>
+        <h1 class="text-light">{{ name }}'s Files</h1>
         <br>
         <div class="row row-cols-1 row-cols-md-5 g-20">
-
         {% for i in files %}
              <div >
                 <a href="/{{ i.path }}" download= "/{{ i.path }}"><img class="download" src="/static/download.png"></a><a href="/deletefile?id={{ i.id }}"><img class="delete" src="/static/delete.png"></a><br><br>
@@ -54,7 +56,6 @@
                  {% endif %}
                  </div>
         {% endfor %}
-
         </div>
 </div>
 </body>
